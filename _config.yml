@@ -4,7 +4,6 @@ email: havidalbar@gmail.com
 description: M Havid Albar P - Portfolio; Machine Learning, Deep Learning, Apps
 url: "https://havidalbar.github.io/"
 github_username: havidalbar
-image: favicons\havidalbar.jpg
 
 theme: jekyll-theme-minimal
 plugins:
