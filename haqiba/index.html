@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Haqiba · Toko online dari Makkah dan Madinah</title>
+  <meta name="description" content="Haqiba membantu toko di Makkah dan Madinah menjual kurma, parfum, dan busana ke jemaah dan keluarganya di Indonesia: etalase Arab-Indonesia, antar ke hotel, harga riyal jadi rupiah lengkap dengan ongkir dan bea, dan satu link lacak.">
+  <meta name="theme-color" content="#00A859">
+  <meta property="og:title" content="Haqiba · Toko online dari Makkah dan Madinah">
+  <meta property="og:description" content="Etalase Arab-Indonesia, antar ke hotel jemaah, dan kirim ke Indonesia lewat kurir resmi dengan satu link lacak.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://havidalbar.github.io/haqiba/">
+  <meta property="og:image" content="https://havidalbar.github.io/haqiba/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- Nomor WhatsApp cukup diganti di sini. Format internasional tanpa + atau spasi, misalnya 6281234567890. -->
+<body data-wa="6281281185726">
+  <a class="skip" href="#main">Langsung ke isi</a>
+
+  <header class="nav" id="top">
+    <div class="wrap nav__in">
+      <a class="logo" href="#top" aria-label="Haqiba, ke atas">
+        <svg viewBox="5.5 3.6 21 27.7" aria-hidden="true"><path d="M12.5 9.5V6.5a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="6.5" y="9" width="19" height="18" rx="3.5"/><path d="M12 12.5v11M20 12.5v11" class="logo__strap"/><circle cx="11" cy="29.2" r="1.9"/><circle cx="21" cy="29.2" r="1.9"/></svg>
+        <span>haqiba</span>
+      </a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="menu" aria-label="Buka menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <nav id="menu" class="nav__menu" aria-label="Utama">
+        <a href="#fitur">Fitur</a>
+        <a href="#kalkulator">Kalkulator</a>
+        <a href="#untuk-siapa">Untuk siapa</a>
+        <a href="#harga">Harga</a>
+        <a href="#faq">FAQ</a>
+        <a class="btn btn--sm" data-wa-from="navbar" href="https://wa.me/">Mulai gratis</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__copy">
+        <p class="pill-tag"><span lang="ar" dir="rtl">مكة · المدينة</span> Makkah dan Madinah ke Indonesia</p>
+        <h1>Toko online untuk penjual di Makkah dan Madinah.</h1>
+        <p class="lead">Jemaah membuka etalasemu cukup dengan menempelkan HP, memesan kurma untuk diantar ke hotel, lalu memesan lagi dari Indonesia. Harga riyal langsung jadi rupiah, lengkap dengan ongkir dan bea.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" data-wa-from="hero" href="https://wa.me/">Mulai gratis</a>
+          <a class="btn btn--ghost btn--lg" href="#kalkulator">Coba kalkulator</a>
+        </div>
+        <p class="hero__note">Komisi 0% · Uang langsung ke rekening toko · Haqiba tidak memegang uang pembeli</p>
+      </div>
+
+      <!-- Demo produk: simulasi aplikasi yang berjalan sendiri. Tombol di bawah HP loncat ke tiap bagian. -->
+      <div class="wrap stage" id="demo">
+        <div class="stage__deco" aria-hidden="true"><span class="deco-sun"></span><span class="deco-arch"></span><span class="deco-dot"></span></div>
+
+        <div class="phone" role="img" aria-label="Demo aplikasi Haqiba di HP. Uraian tiap langkah ada pada tombol di bawahnya.">
+          <div class="phone__status"><span>9:41</span><span class="phone__url">haqiba.id/nakhla</span><span class="phone__bat"></span></div>
+          <div class="screens" aria-hidden="true">
+
+            <!-- 1 NFC -->
+            <div class="screen" data-screen="0">
+              <div class="nfc">
+                <span class="nfc__ring"></span><span class="nfc__ring"></span><span class="nfc__ring"></span>
+                <svg class="nfc__ico" viewBox="0 0 24 24"><path d="M6 8.5a5 5 0 0 1 0 7M9.5 6a8.5 8.5 0 0 1 0 12M13 4a12 12 0 0 1 0 16"/></svg>
+              </div>
+              <p class="nfc__txt">Tempelkan HP ke stiker di kasir</p>
+              <div class="notif">
+                <span class="notif__app">H</span>
+                <div><b>Toko Nakhla, Madinah</b><p>Buka etalase kurma dan parfum</p></div>
+                <span class="notif__btn" data-tap>Buka</span>
+              </div>
+            </div>
+
+            <!-- 2 Etalase -->
+            <div class="screen" data-screen="1">
+              <div class="shop">
+                <div class="shop__head">
+                  <div><b>Toko Nakhla</b><span class="ar" lang="ar" dir="rtl">متجر نخلة · المدينة</span></div>
+                  <span class="vbadge">CR terverifikasi</span>
+                </div>
+                <div class="langs"><span class="on">Indonesia</span><span lang="ar">العربية</span></div>
+                <div class="prod">
+                  <span class="thumb thumb--date">عجوة</span>
+                  <div class="prod__txt"><b>Kurma Ajwa 1 kg</b><span class="ar" lang="ar" dir="rtl">تمر عجوة</span><span class="price">SAR 85 <i>≈ Rp361.250</i></span></div>
+                  <span class="add" data-tap>+</span>
+                </div>
+                <div class="prod">
+                  <span class="thumb thumb--oud">عود</span>
+                  <div class="prod__txt"><b>Parfum Oud 12 ml</b><span class="ar" lang="ar" dir="rtl">عطر عود</span><span class="price">SAR 60 <i>≈ Rp255.000</i></span></div>
+                  <span class="add">+</span>
+                </div>
+                <div class="prod">
+                  <span class="thumb thumb--mat">سجادة</span>
+                  <div class="prod__txt"><b>Sajadah Madinah</b><span class="ar" lang="ar" dir="rtl">سجادة</span><span class="price">SAR 45 <i>≈ Rp191.250</i></span></div>
+                  <span class="add">+</span>
+                </div>
+                <div class="cartbar"><span>Keranjang</span><b class="cartbar__n">1 barang · SAR 85</b></div>
+              </div>
+            </div>
+
+            <!-- 3 Antar ke hotel -->
+            <div class="screen" data-screen="2">
+              <p class="s-title">Antar ke hotel</p>
+              <p class="s-sub">Gratis untuk hotel dalam radius 1 km dari Masjid Nabawi</p>
+              <ul class="hotels">
+                <li class="hotel"><span class="radio"></span><div><b>Hotel Zona A</b><span>350 m · Gerbang 21</span></div></li>
+                <li class="hotel hotel--pick" data-tap><span class="radio"></span><div><b>Hotel Zona B</b><span>600 m · Gerbang 25</span></div></li>
+                <li class="hotel"><span class="radio"></span><div><b>Hotel Zona C</b><span>900 m · Gerbang 15</span></div></li>
+              </ul>
+              <div class="field"><span>Nama dan nomor kamar</span><b class="typed">Bu Aminah · 1207</b></div>
+              <div class="field"><span>Jadwal antar</span><b>Hari ini, 16.00–18.00</b></div>
+              <span class="cta-in" data-tap>Pesan · bayar saat diterima</span>
+            </div>
+
+            <!-- 4 Serah terima -->
+            <div class="screen" data-screen="3">
+              <p class="s-title">Pesanan #0412</p>
+              <ol class="steps">
+                <li class="step"><b>Dikemas</b><span>15.10</span></li>
+                <li class="step"><b>Kurir toko berangkat</b><span>16.05</span></li>
+                <li class="step"><b>Diserahkan di lobi hotel</b><span>16.42 · Hotel Zona B</span></li>
+              </ol>
+              <div class="photo">
+                <svg viewBox="0 0 120 70" aria-hidden="true"><rect x="0" y="0" width="120" height="70" rx="8" class="ph-bg"/><rect x="38" y="24" width="44" height="34" rx="3" class="ph-box"/><path d="M38 34h44M60 24v34" class="ph-tape"/><circle cx="100" cy="16" r="7" class="ph-sun"/></svg>
+                <span>Foto serah terima</span>
+              </div>
+              <div class="toast"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Selesai. Jemaah membayar di lobi.</div>
+            </div>
+
+            <!-- 5 Pesan lagi dari Indonesia -->
+            <div class="screen" data-screen="4">
+              <span class="chip chip--sky">3 minggu kemudian · Surabaya</span>
+              <p class="s-title">Pesan lagi</p>
+              <div class="calc">
+                <div class="row r"><span>Kurma Ajwa 2 kg</span><span>SAR 170</span></div>
+                <div class="row r muted"><span>× kurs 4.250</span><span>Rp722.500</span></div>
+                <div class="row r"><span>Ongkir Aramex</span><span>Rp293.250</span></div>
+                <div class="row r"><span>Perkiraan bea dan pajak</span><span>Rp125.000</span></div>
+                <div class="row total r"><span>Total</span><span>Rp1.140.750</span></div>
+              </div>
+              <p class="lock r"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Harga dikunci saat checkout</p>
+              <span class="cta-in" data-tap>Bayar Rp1.140.750</span>
+            </div>
+
+            <!-- 6 Lacak -->
+            <div class="screen" data-screen="5">
+              <p class="s-title">Lacak pesanan #0587</p>
+              <ol class="track">
+                <li class="t"><b>Dikemas di Madinah</b><span>2 Des</span></li>
+                <li class="t"><b>Diserahkan ke Aramex, Jeddah</b><span>3 Des</span></li>
+                <li class="t"><b>Tiba di Jakarta, bea dibayar</b><span>6 Des</span></li>
+                <li class="t"><b>Diantar kurir</b><span>Surabaya, 8 Des</span></li>
+                <li class="t"><b>Diterima</b><span>Surabaya, 9 Des</span></li>
+              </ol>
+            </div>
+          </div>
+          <span class="finger" aria-hidden="true"></span>
+        </div>
+
+        <div class="chapters" role="group" aria-label="Bagian demo">
+          <button type="button" class="chap" data-chap="0"><i></i>Tap NFC atau QR</button>
+          <button type="button" class="chap" data-chap="1"><i></i>Etalase Arab-Indonesia</button>
+          <button type="button" class="chap" data-chap="2"><i></i>Antar ke hotel</button>
+          <button type="button" class="chap" data-chap="3"><i></i>Serah terima</button>
+          <button type="button" class="chap" data-chap="4"><i></i>Pesan lagi dari Indonesia</button>
+          <button type="button" class="chap" data-chap="5"><i></i>Lacak sampai rumah</button>
+          <button type="button" class="chap chap--ctl" hidden aria-pressed="false"><span>Jeda</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANGKA -->
+    <section class="sec band band--sun" aria-labelledby="h-angka">
+      <div class="wrap">
+        <h2 id="h-angka" class="center">Jutaan jemaah pulang membawa oleh-oleh. Keluarganya ingin pesan lagi.</h2>
+        <div class="stats">
+          <article class="stat"><p class="stat__n" data-count="18.03" data-dec="2">18,03 jt</p><p>jemaah umrah dari luar negeri ke Saudi pada 2025</p><a href="https://www.gdnonline.com/Details/1402486/195m-foreign-Hajj-pilgrims,-Umrah-performers-arrive-in-Saudi-in-2025" target="_blank" rel="noopener">GDN Online</a></article>
+          <article class="stat"><p class="stat__n" data-count="1.2" data-dec="1">1,2 jt+</p><p>jemaah umrah Indonesia berangkat setiap tahun</p><a href="https://www.bps.go.id/id/publication/2026/04/30/7344d8c9b1935d342f2ff9e7/statistik-wisatawan-nasional-2025.html" target="_blank" rel="noopener">BPS 2025</a></article>
+          <article class="stat"><p class="stat__n">60–70 ton</p><p>barang jemaah dikirim kargo haji Pos Indonesia dari Madinah dalam 10 hari pertama musim 2026</p><a href="https://www.suarasurabaya.net/?p=871207" target="_blank" rel="noopener">Suara Surabaya</a></article>
+          <article class="stat"><p class="stat__n" data-count="702342" data-dec="0">702.342</p><p>laporan penipuan ke Indonesia Anti-Scam Centre (OJK) sampai 30 Sep 2026. Belanja online di urutan pertama.</p><a href="https://katadata.co.id/finansial/keuangan/6ad1a3875e700/ojk-terima-702-ribu-laporan-penipuan-simak-cara-melindungi-uang" target="_blank" rel="noopener">Katadata</a></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FITUR -->
+    <div id="fitur">
+      <!-- A. Chat ke pesanan -->
+      <section class="feat" aria-labelledby="h-chat">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Dari chat ke pesanan</p>
+            <h2 id="h-chat">Keluarga jemaah bertanya di WhatsApp. Kamu cukup kirim satu link.</h2>
+            <p>Pembeli memilih barang, alamat, dan pengiriman sendiri di etalasemu. Pesanan masuk lengkap, tanpa salah catat ukuran atau alamat.</p>
+          </div>
+          <div class="panel panel--sand">
+            <div class="chat" data-sim="chat">
+              <p class="bub bub--in">Assalamualaikum, kurma ajwa masih ada? Bisa kirim ke Surabaya?</p>
+              <p class="bub bub--out">Waalaikumsalam, ada Bu. Silakan pesan di sini, ongkir dan bea sudah dihitung.</p>
+              <div class="bub bub--out bub--link"><b>Toko Nakhla</b><span>haqiba.id/nakhla</span></div>
+              <p class="bub bub--sys"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Pesanan #0587 masuk · Rp1.140.750</p>
+              <span class="finger finger--chat"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- B. Kalkulator interaktif -->
+      <section class="feat feat--flip" id="kalkulator" aria-labelledby="h-calc">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Kalkulator harga final</p>
+            <h2 id="h-calc">Coba sendiri: harga final untuk jastip antarnegara atau dalam negeri.</h2>
+            <p><b>Internasional:</b> harga riyal, dirham, yen, atau won dikonversi ke rupiah, lalu ditambah margin, ongkir, dan perkiraan bea. Buffer kurs menjaga margin kalau kurs naik setelah PO ditutup.</p>
+            <p><b>Domestik:</b> jastip di dalam satu negara, misalnya dari Madinah ke Riyadh. Mata uang mengikuti negara toko, tanpa kurs dan bea. Di aplikasi, harga dikunci saat pembeli checkout.</p>
+            <p class="small muted">Kurs dan persentase bea di sini hanya contoh, bukan tarif resmi.</p>
+          </div>
+          <div class="panel panel--mint">
+            <form class="calcform" id="calc" autocomplete="off">
+              <div class="seg" role="group" aria-label="Jenis jastip">
+                <button type="button" data-mode="intl" aria-pressed="true">Internasional</button>
+                <button type="button" data-mode="dom" aria-pressed="false">Domestik</button>
+              </div>
+              <label class="only-dom" hidden>Negara toko
+                <select name="dom">
+                  <option value="SAR">Arab Saudi · riyal (SAR)</option>
+                  <option value="IDR">Indonesia · rupiah (Rp)</option>
+                  <option value="AED">Uni Emirat Arab · dirham (AED)</option>
+                  <option value="QAR">Qatar · riyal (QAR)</option>
+                </select>
+              </label>
+              <div class="cf-row">
+                <label class="only-intl">Mata uang barang
+                  <select name="cur">
+                    <option value="4250">SAR · riyal Saudi</option>
+                    <option value="4340">AED · dirham UEA</option>
+                    <option value="4380">QAR · riyal Qatar</option>
+                    <option value="106.5">JPY · yen Jepang</option>
+                    <option value="11.6">KRW · won Korea</option>
+                  </select>
+                </label>
+                <label><span class="lbl">Harga barang <span data-unit-price></span></span><input name="price" type="number" inputmode="decimal" min="0" step="any" value="170"></label>
+              </div>
+              <div class="cf-row">
+                <label><span class="lbl">Fee jastip (<span data-unit>Rp</span>)</span><input name="fee" type="number" inputmode="decimal" min="0" step="any" value="0"></label>
+                <label><span class="lbl">Ongkir (<span data-unit>Rp</span>)</span><input name="ship" type="number" inputmode="decimal" min="0" step="any" value="293250"></label>
+              </div>
+              <div class="cf-row only-intl">
+                <label>Perkiraan bea (%)<input name="duty" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="17.3"></label>
+                <label>Buffer kurs (%)<input name="buf" type="number" inputmode="decimal" min="0" max="20" step="0.5" value="0"></label>
+              </div>
+              <output class="cf-out" name="out" aria-live="polite">
+                <span class="cf-line"><span data-l="base">Harga dalam rupiah</span><b data-o="base">Rp722.500</b></span>
+                <span class="cf-line"><span>Fee + ongkir</span><b data-o="extra">Rp293.250</b></span>
+                <span class="cf-line only-intl"><span>Perkiraan bea</span><b data-o="duty">Rp125.000</b></span>
+                <span class="cf-total"><span>Pembeli bayar</span><b data-o="total">Rp1.140.750</b></span>
+              </output>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- C. Antar ke hotel -->
+      <section class="feat" aria-labelledby="h-hotel">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Antar Sendiri</p>
+            <h2 id="h-hotel">Antar ke hotel jemaah, dengan bukti foto di lobi.</h2>
+            <p>Tentukan daftar hotel atau radius layanan, ongkir, dan jadwal antar. Pembeli menulis nama dan nomor kamar, lalu membayar saat barang diterima atau lewat transfer. Foto serah terima tampil di link lacak pembeli.</p>
+          </div>
+          <div class="panel panel--sky">
+            <div class="map" data-sim="map" aria-hidden="true">
+              <svg viewBox="0 0 320 220" class="map__svg">
+                <rect width="320" height="220" class="m-bg"/>
+                <path d="M0 150 L320 120 M60 0 L110 220 M200 0 L240 220 M0 60 L320 80" class="m-road"/>
+                <circle cx="160" cy="110" r="78" class="m-radius"/>
+                <rect x="146" y="96" width="28" height="28" rx="6" class="m-mosque"/>
+                <circle class="m-hotel" cx="98" cy="70" r="7"/><circle class="m-hotel" cx="222" cy="150" r="7"/><circle class="m-hotel m-hotel--pick" cx="206" cy="66" r="9"/>
+                <path id="route" d="M40 190 C 90 170, 120 130, 150 120 S 200 90, 206 66" class="m-route"/>
+                <circle r="8" class="m-courier"/>
+              </svg>
+              <div class="map__card"><b>Hotel Zona B · kamar 1207</b><span class="map__st">Kurir dalam perjalanan</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- D. Pembayaran + rekap -->
+      <section class="feat feat--flip" aria-labelledby="h-pay">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Pembayaran dan rekap</p>
+            <h2 id="h-pay">Uang langsung ke rekening toko. Haqiba yang mencocokkan.</h2>
+            <p>Setiap pesanan punya kode unik di 3 digit terakhir nominal. Begitu transfer masuk, pesanan ditandai lunas. Rekap order dan untung per bulan tersedia tanpa Excel.</p>
+          </div>
+          <div class="panel panel--sun">
+            <div class="dash" data-sim="dash" aria-hidden="true">
+              <div class="dash__head"><b>Pesanan hari ini</b><span class="dash__sum">Untung <b data-profit>SAR 0</b></span></div>
+              <div class="drow"><span>#0584 · Pak Hasan</span><span>Rp722.5<mark>17</mark></span><span class="st"><i>Menunggu</i><i class="ok">Lunas</i></span></div>
+              <div class="drow"><span>#0585 · Bu Rina</span><span>Rp510.0<mark>42</mark></span><span class="st"><i>Menunggu</i><i class="ok">Lunas</i></span></div>
+              <div class="drow"><span>#0586 · Hotel Zona B</span><span>SAR 85</span><span class="st"><i>Diantar</i><i class="ok">Diterima</i></span></div>
+              <div class="drow"><span>#0587 · Bu Aminah</span><span>Rp1.140.7<mark>63</mark></span><span class="st"><i>Menunggu</i><i class="ok">Lunas</i></span></div>
+              <div class="ding">Transfer masuk Rp1.140.763 · cocok dengan #0587</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- E. QR dan NFC -->
+      <section class="feat" aria-labelledby="h-qr">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">QR dan stiker NFC</p>
+            <h2 id="h-qr">Tempel di kasir, cetak di kemasan.</h2>
+            <p>Alamat tokomu otomatis tersedia sebagai QR siap cetak dan stiker NFC. Jemaah di toko cukup menempelkan HP. Setelah pulang, QR di kemasan membawa mereka kembali ke etalase yang sama untuk pesan lagi.</p>
+          </div>
+          <div class="panel panel--mint">
+            <div class="tapdemo" data-sim="tap" aria-hidden="true">
+              <div class="sticker"><svg viewBox="0 0 24 24"><path d="M6 8.5a5 5 0 0 1 0 7M9.5 6a8.5 8.5 0 0 1 0 12M13 4a12 12 0 0 1 0 16"/></svg><span>Tempelkan HP</span><small>haqiba.id/nakhla</small></div>
+              <span class="ripple"></span><span class="ripple"></span>
+              <div class="miniphone"><div class="miniphone__scr"><b>Toko Nakhla</b><span>Kurma · Parfum · Busana</span><i></i><i></i><i></i></div></div>
+              <svg viewBox="0 0 21 21" class="qr"><path d="M0 0h7v7H0zM2 2v3h3V2zM14 0h7v7h-7zm2 2v3h3V2zM0 14h7v7H0zm2 2v3h3v-3zM9 0h2v2H9zm2 2h2v3h-2zM9 6h2v3H9zm-9 3h3v2H0zm5 0h4v2H5zm6 0h3v3h-3zm5 0h5v2h-5zM9 13h2v2H9zm4 0h3v2h-3zm5 0h3v3h-3zm-7 3h2v5h-2zm4 0h2v2h-2zm2 3h4v2h-4z"/></svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- F. Cek barang -->
+      <section class="feat feat--flip" aria-labelledby="h-cek">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Peringatan barang terbatas</p>
+            <h2 id="h-cek">Tahu aturannya sebelum barang dipajang.</h2>
+            <p>Haqiba mengingatkan barang yang butuh izin atau tidak boleh dijual, sebelum kamu menerima pesanan. Pilih barang untuk mencoba.</p>
+          </div>
+          <div class="panel panel--sand">
+            <div class="checker">
+              <div class="checker__chips" role="group" aria-label="Pilih barang">
+                <button type="button" data-k="zamzam" aria-pressed="false">Air zamzam</button>
+                <button type="button" data-k="kurma" aria-pressed="true">Kurma</button>
+                <button type="button" data-k="parfum" aria-pressed="false">Parfum</button>
+                <button type="button" data-k="ponsel" aria-pressed="false">Ponsel</button>
+                <button type="button" data-k="busana" aria-pressed="false">Busana, sajadah</button>
+              </div>
+              <div class="checker__out" aria-live="polite">
+                <p class="verdict verdict--warn"><b>Cek izin BPOM</b> Makanan yang dijual ulang di Indonesia perlu izin BPOM.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- G. Link lacak, mengikuti scroll -->
+      <section class="feat" aria-labelledby="h-lacak">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Satu link lacak</p>
+            <h2 id="h-lacak">Dari Madinah sampai pintu rumah, pembeli tidak perlu bertanya lagi.</h2>
+            <p>Barang dikirim lewat jalur kiriman resmi (PMK 96/2023), bukan dibawa di koper. Pembeli bisa melapor masalah dari link lacak dan mengunduh riwayat pesanannya sebagai bukti.</p>
+          </div>
+          <div class="panel panel--sky">
+            <ol class="bigtrack" data-sim="track">
+              <li><b>Dikemas di Madinah</b><span>Foto barang dikirim ke pembeli</span></li>
+              <li><b>Diserahkan ke Aramex, Jeddah</b><span>Nomor resi otomatis</span></li>
+              <li><b>Tiba di Jakarta</b><span>Bea dan pajak dibayar</span></li>
+              <li><b>Diantar kurir</b><span>Surabaya</span></li>
+              <li><b>Diterima</b><span>Pembeli bisa pesan lagi dari link yang sama</span></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- UNTUK SIAPA -->
+    <section class="sec" id="untuk-siapa" aria-labelledby="h-siapa">
+      <div class="wrap">
+        <h2 id="h-siapa" class="center">Satu toko, dua sisi perjalanan.</h2>
+        <div class="who">
+          <article class="who__card who__card--green">
+            <span class="who__tag">Utama</span>
+            <h3>Toko berlisensi di Makkah dan Madinah</h3>
+            <p>Jual kurma, parfum, dan busana ke jemaah yang masih di hotel dan ke keluarganya di Indonesia. Lencana diberikan setelah izin usaha (CR) dicocokkan.</p>
+            <p class="who__price">SAR 149 per bulan</p>
+          </article>
+          <article class="who__card who__card--sun">
+            <span class="who__tag">Pembeli</span>
+            <h3>Jemaah dan keluarganya</h3>
+            <p>Pesan dari hotel tanpa membawa barang berat, lalu pesan lagi setelah pulang. Harga sudah final dan pesanan bisa dilacak.</p>
+            <p class="who__price">Gratis untuk pembeli</p>
+          </article>
+          <article class="who__card who__card--sky">
+            <span class="who__tag">Indonesia</span>
+            <h3>Penjual jastip</h3>
+            <p>Jastip dari Jepang, Korea, atau dalam negeri memakai alat yang sama: trip dengan kuota koper, harga final, dan link lacak.</p>
+            <p class="who__price">Mulai Rp99rb per trip</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- KEPERCAYAAN -->
+    <section class="sec band band--mint" aria-labelledby="h-aman">
+      <div class="wrap">
+        <h2 id="h-aman" class="center">Pembeli berani checkout karena semuanya tercatat.</h2>
+        <ul class="trust">
+          <li><span class="trust__ico">01</span><h3>Kami tidak memegang uang</h3><p>Pembayaran langsung ke rekening toko, atau tunai saat barang diterima di hotel.</p></li>
+          <li><span class="trust__ico">02</span><h3>Komisi 0%</h3><p>Toko membayar paket, bukan potongan dari setiap penjualan.</p></li>
+          <li><span class="trust__ico">03</span><h3>Lencana terverifikasi</h3><p>Izin usaha (CR) untuk toko Saudi, KTP yang cocok dengan pemilik rekening untuk penjual Indonesia.</p></li>
+          <li><span class="trust__ico">04</span><h3>Hanya toko berlisensi</h3><p>Jemaah tidak boleh membuka jastip dari Arab, jadi sisi Saudi hanya untuk toko yang punya CR.</p></li>
+          <li><span class="trust__ico">05</span><h3>Riwayat bisa diunduh</h3><p>Pembeli punya bukti untuk laporan ke polisi atau OJK kalau terjadi masalah.</p></li>
+          <li><span class="trust__ico">06</span><h3>Batas tanggung jawab terbuka</h3><p>Haqiba tidak menjamin dana pembeli, dan ini tertulis di halaman checkout. Kalkulator menampilkan dasar aturan dan tanggal pembaruan tarif bea.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HARGA -->
+    <section class="sec" id="harga" aria-labelledby="h-harga">
+      <div class="wrap">
+        <h2 id="h-harga" class="center">Harga yang jelas, tanpa komisi.</h2>
+        <div class="plans">
+          <article class="plan plan--main">
+            <span class="plan__flag">Toko Saudi</span>
+            <h3>Merchant Saudi/GCC</h3>
+            <p class="plan__price">SAR 149 <small>/ bulan</small></p>
+            <p class="plan__for">Etalase Arab-Indonesia, QR dan stiker NFC, antar ke hotel, dan kirim ke Indonesia lewat kurir mitra. Margin label kirim sekitar SAR 3, ditampilkan terbuka.</p>
+            <a class="btn" data-wa-from="harga-merchant" href="https://wa.me/">Daftar uji coba</a>
+          </article>
+          <article class="plan">
+            <h3>Trip Global</h3>
+            <p class="plan__price">Rp249rb <small>/ trip</small></p>
+            <p class="plan__for">≈ SAR 58. Untuk jastip yang mengirim barang lewat kurir mitra.</p>
+            <a class="btn btn--ghost" data-wa-from="harga-trip-global" href="https://wa.me/">Pilih</a>
+          </article>
+          <article class="plan">
+            <h3>Trip dan Trip Besar</h3>
+            <p class="plan__price">Rp99rb <small>/ trip</small></p>
+            <p class="plan__for">Sampai 150 order. Trip Besar Rp149rb untuk 400 order. Trip pertama gratis.</p>
+            <a class="btn btn--ghost" data-wa-from="harga-trip" href="https://wa.me/">Pilih</a>
+          </article>
+          <article class="plan">
+            <h3>Lokal</h3>
+            <p class="plan__price">Rp49rb <small>/ bulan</small></p>
+            <p class="plan__for">Trip tanpa batas untuk jastip dalam negeri.</p>
+            <a class="btn btn--ghost" data-wa-from="harga-lokal" href="https://wa.me/">Pilih</a>
+          </article>
+        </div>
+        <aside class="offer">
+          <div><h3>Uji coba gratis</h3><p>Untuk 3 toko pertama di Makkah dan Madinah, dan 20 penjual jastip pertama sebelum 31 Maret 2027.</p></div>
+          <ul>
+            <li>Katalog dan daftar pelanggan kami pindahkan untukmu.</li>
+            <li>Harga paket penjual jastip tidak naik selama 12 bulan.</li>
+            <li>Kalau kurang dari separuh pembeli di trip berbayar pertama checkout lewat link Haqiba, biaya trip itu kami kembalikan.</li>
+          </ul>
+          <a class="btn" data-wa-from="uji-coba" href="https://wa.me/">Ambil slot</a>
+        </aside>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="sec band band--sand" id="faq" aria-labelledby="h-faq">
+      <div class="wrap wrap--narrow">
+        <h2 id="h-faq" class="center">Pertanyaan yang sering masuk</h2>
+        <div class="faq">
+          <details><summary>Apa itu Haqiba?</summary><p>Software toko untuk penjual lintas negara. Toko di Makkah dan Madinah memakai Haqiba untuk menjual ke jemaah di hotel dan ke keluarganya di Indonesia, dan penjual jastip Indonesia memakainya untuk trip belanja.</p></details>
+          <details><summary>Apakah jemaah boleh membuka jastip dari Arab?</summary><p>Tidak. Bea Cukai melarang jemaah haji membuka jastip dari Arab, dan bekerja dengan visa umrah atau visa kunjungan dilarang di Saudi. Karena itu sisi Saudi di Haqiba hanya untuk toko berlisensi (CR).</p></details>
+          <details><summary>Bagaimana barang sampai ke Indonesia?</summary><p>Lewat kurir mitra seperti Aramex dan DHL atau kargo Pos Indonesia, dengan jalur kiriman resmi (PMK 96/2023). Perkiraan ongkir dan bea sudah masuk di harga yang dilihat pembeli.</p></details>
+          <details><summary>Apakah Haqiba memegang uang pembeli?</summary><p>Tidak. Pembeli membayar langsung ke rekening toko, atau tunai saat barang diterima di hotel. Haqiba hanya mencocokkan pembayaran lewat kode unik.</p></details>
+          <details><summary>Bagaimana kalau bea dari Bea Cukai berbeda dengan hitungan kalkulator?</summary><p>Selisihnya diselesaikan antara penjual dan pembeli sesuai syarat toko. Kalkulator selalu menampilkan dasar aturan dan tanggal pembaruan tarifnya.</p></details>
+          <details><summary>Apakah ada komisi?</summary><p>Tidak. Toko membayar paket bulanan, dan penjual jastip membayar per trip. Untuk label kirim lintas negara ada margin sekitar SAR 3, dan angkanya ditampilkan terbuka.</p></details>
+          <details><summary>Kapan bisa dipakai?</summary><p>Versi pertama sedang kami bangun. Toko dan penjual yang menghubungi kami sekarang masuk daftar uji coba gratis.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="end">
+      <div class="wrap end__in">
+        <h2>Buka etalasemu untuk jemaah musim ini.</h2>
+        <p>Ceritakan tokomu lewat WhatsApp, dan kami bantu siapkan etalase dan stiker NFC-nya.</p>
+        <a class="btn btn--ink btn--lg" data-wa-from="cta-akhir" href="https://wa.me/">Chat di WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <div class="foot__brand">
+        <a class="logo" href="#top" aria-label="Haqiba, ke atas">
+          <svg viewBox="5.5 3.6 21 27.7" aria-hidden="true"><path d="M12.5 9.5V6.5a1.5 1.5 0 0 1 1.5-1.5h4a1.5 1.5 0 0 1 1.5 1.5v3" fill="none" stroke="currentColor" stroke-width="2.4"/><rect x="6.5" y="9" width="19" height="18" rx="3.5"/><path d="M12 12.5v11M20 12.5v11" class="logo__strap"/><circle cx="11" cy="29.2" r="1.9"/><circle cx="21" cy="29.2" r="1.9"/></svg>
+          <span>haqiba</span>
+        </a>
+        <p class="small muted">Toko online dari Makkah dan Madinah ke Indonesia. <span lang="ar" dir="rtl">حقيبة</span> berarti tas.</p>
+      </div>
+      <div><h4>Produk</h4><ul><li><a href="#fitur">Fitur</a></li><li><a href="#kalkulator">Kalkulator</a></li><li><a href="#harga">Harga</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+      <div><h4>Tim</h4><ul><li>Mochamad Havid Albar Purnomo<br><span class="muted small">Founder, produk dan teknologi</span></li><li>Ayla Mahrensha Anjaneth<br><span class="muted small">Co-founder, riset lapangan dan kemitraan Saudi</span></li></ul></div>
+      <div><h4>Kontak</h4><ul><li><a data-wa-from="footer" href="https://wa.me/">WhatsApp</a></li></ul></div>
+    </div>
+    <div class="wrap foot__bottom small muted">© 2026 Haqiba</div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/motion@12.23.12/dist/motion.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
