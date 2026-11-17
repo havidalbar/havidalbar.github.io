@@ -503,6 +503,18 @@
     <div class="wrap foot__bottom small muted">© 2026 Haqiba</div>
   </footer>
 
+  <dialog id="wa-dialog" class="dlg" aria-labelledby="wa-title">
+    <form method="dialog">
+      <h3 id="wa-title">Sebelum lanjut ke WhatsApp</h3>
+      <p>Siapa nama kamu? Kami pakai untuk menyapa di chat.</p>
+      <label>Nama<input name="nama" required maxlength="60" autocomplete="name" placeholder="contoh: Aminah"></label>
+      <div class="dlg__act">
+        <button class="btn btn--ghost" value="batal" formnovalidate>Batal</button>
+        <button class="btn" value="ok">Lanjut ke WhatsApp</button>
+      </div>
+    </form>
+  </dialog>
+
   <script src="https://cdn.jsdelivr.net/npm/motion@12.23.12/dist/motion.js"></script>
   <script src="app.js"></script>
 </body>

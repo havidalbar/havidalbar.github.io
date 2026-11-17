@@ -4,10 +4,39 @@ const rp = (n) => "Rp" + Math.round(n).toLocaleString("id-ID");
 
 // WhatsApp: satu nomor di <body data-wa>, pesan pembuka berbeda per tombol.
 const wa = document.body.dataset.wa;
+const waText = (name) => `Halo Haqiba, ${name ? `saya ${name}. Saya` : "saya"} mau ikut uji coba gratis.`;
+const waUrl = (name) => `https://wa.me/${wa}?text=${encodeURIComponent(waText(name))}`;
+console.assert(waText("Aminah") === "Halo Haqiba, saya Aminah. Saya mau ikut uji coba gratis.", "waText dengan nama");
+console.assert(waText("") === "Halo Haqiba, saya mau ikut uji coba gratis.", "waText tanpa nama");
+
+// href tetap diisi (tanpa nama) supaya link jalan walau dialog tidak tersedia.
 for (const a of $$("[data-wa-from]")) {
-  a.href = `https://wa.me/${wa}?text=${encodeURIComponent(`Halo Haqiba, saya mau ikut uji coba gratis. (dari: ${a.dataset.waFrom})`)}`;
+  a.href = waUrl("");
   a.target = "_blank";
   a.rel = "noopener";
+}
+
+// Tanya nama dulu sebelum membuka WhatsApp.
+const dlg = $("#wa-dialog");
+if (dlg?.showModal) {
+  const nameInput = $("input[name=nama]", dlg);
+  const store = { get: () => { try { return localStorage.getItem("haqiba-nama") || ""; } catch { return ""; } },
+                  set: (v) => { try { localStorage.setItem("haqiba-nama", v); } catch {} } };
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("[data-wa-from]");
+    if (!a || e.ctrlKey || e.metaKey || e.shiftKey) return; // klik dengan modifier: biarkan link biasa
+    e.preventDefault();
+    nameInput.value = store.get();
+    dlg.showModal();
+    nameInput.focus();
+  });
+  $("form", dlg).addEventListener("submit", (e) => {
+    if (e.submitter?.value === "batal") return; // method=dialog menutup sendiri
+    const name = nameInput.value.trim().replace(/\s+/g, " ").slice(0, 60);
+    if (!name) { e.preventDefault(); nameInput.focus(); return; }
+    store.set(name);
+    window.open(waUrl(name), "_blank", "noopener");
+  });
 }
 
 // Menu HP
