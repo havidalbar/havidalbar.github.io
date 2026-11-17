@@ -359,3 +359,14 @@ svg { display: block; }
 .foot__bottom { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); }
 @media (max-width: 800px) { .foot__in { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .foot__in { grid-template-columns: 1fr; } }
+
+/* dialog nama sebelum WhatsApp */
+.dlg { width: min(420px, 100% - 32px); padding: 0; border: 2px solid var(--ink); border-radius: var(--r); box-shadow: 8px 8px 0 var(--green); color: var(--ink); }
+.dlg::backdrop { background: rgba(15, 26, 20, .55); }
+.dlg form { display: grid; gap: 14px; padding: 24px; }
+.dlg h3 { font-size: 1.3rem; }
+.dlg p { color: var(--ink-2); }
+.dlg label { display: grid; gap: 6px; font-weight: 600; font-size: .9rem; }
+.dlg input { min-height: 48px; padding: 0 14px; border: 2px solid var(--ink); border-radius: 12px; font: inherit; font-size: 1rem; color: var(--ink); background: #fff; }
+.dlg__act { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+@media (max-width: 400px) { .dlg__act { flex-direction: column-reverse; } .dlg__act .btn { width: 100%; } }
