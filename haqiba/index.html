@@ -255,6 +255,7 @@
                 <label>Perkiraan bea (%)<input name="duty" type="number" inputmode="decimal" min="0" max="100" step="0.5" value="17.3"></label>
                 <label>Buffer kurs (%)<input name="buf" type="number" inputmode="decimal" min="0" max="20" step="0.5" value="0"></label>
               </div>
+              <label class="switch"><input type="checkbox" name="detail" checked><span class="switch__k" aria-hidden="true"></span>Tampilkan rincian ke pembeli</label>
               <output class="cf-out" name="out" aria-live="polite">
                 <span class="cf-line"><span data-l="base">Harga dalam rupiah</span><b data-o="base">Rp722.500</b></span>
                 <span class="cf-line"><span>Fee + ongkir</span><b data-o="extra">Rp293.250</b></span>
@@ -266,15 +267,43 @@
         </div>
       </section>
 
+      <!-- C0. Trip dengan tenggat dan kuota -->
+      <section class="feat" aria-labelledby="h-trip">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Trip dengan tenggat dan kuota</p>
+            <h2 id="h-trip">PO tutup sendiri saat koper penuh atau tenggat lewat.</h2>
+            <p>Atur tanggal tutup PO dan kuota koper dalam kilo. Pembeli melihat sisa kuota secara langsung, jadi tidak ada lagi pesanan yang melebihi kapasitas koper.</p>
+          </div>
+          <div class="panel panel--sky">
+            <div class="trip" data-sim="trip" aria-hidden="true">
+              <div class="trip__head">
+                <div><b>Trip Tokyo</b><span>Berangkat 3–10 Des</span></div>
+                <span class="trip__timer">PO tutup dalam <b data-cd>02:14:09</b></span>
+              </div>
+              <div class="trip__q"><span>Kuota koper</span><b><span data-kg>25</span> / 25 kg</b></div>
+              <div class="tquota"><span data-fill></span></div>
+              <ul class="trip__orders">
+                <li class="to"><b>Dina</b><span>Matcha Uji ×2</span><i>+3,5 kg</i></li>
+                <li class="to"><b>Fajar</b><span>Sunscreen ×6</span><i>+3,5 kg</i></li>
+                <li class="to"><b>Sari</b><span>Kitkat ×10</span><i>+3,4 kg</i></li>
+                <li class="to"><b>Rina</b><span>Sepatu lari</span><i>+2,6 kg</i></li>
+              </ul>
+              <div class="trip__closed">Koper penuh · PO ditutup otomatis</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- C. Antar ke hotel -->
-      <section class="feat" aria-labelledby="h-hotel">
+      <section class="feat feat--flip" aria-labelledby="h-hotel">
         <div class="wrap feat__in">
           <div class="feat__txt">
             <p class="kicker">Antar Sendiri</p>
             <h2 id="h-hotel">Antar ke hotel jemaah, dengan bukti foto di lobi.</h2>
             <p>Tentukan daftar hotel atau radius layanan, ongkir, dan jadwal antar. Pembeli menulis nama dan nomor kamar, lalu membayar saat barang diterima atau lewat transfer. Foto serah terima tampil di link lacak pembeli.</p>
           </div>
-          <div class="panel panel--sky">
+          <div class="panel panel--sand">
             <div class="map" data-sim="map" aria-hidden="true">
               <svg viewBox="0 0 320 220" class="map__svg">
                 <rect width="320" height="220" class="m-bg"/>
@@ -292,7 +321,7 @@
       </section>
 
       <!-- D. Pembayaran + rekap -->
-      <section class="feat feat--flip" aria-labelledby="h-pay">
+      <section class="feat" aria-labelledby="h-pay">
         <div class="wrap feat__in">
           <div class="feat__txt">
             <p class="kicker">Pembayaran dan rekap</p>
@@ -312,6 +341,36 @@
         </div>
       </section>
 
+      <!-- D2. Ekspor data -->
+      <section class="feat feat--flip" aria-labelledby="h-exp">
+        <div class="wrap feat__in">
+          <div class="feat__txt">
+            <p class="kicker">Ekspor data</p>
+            <h2 id="h-exp">Data penjualanmu bisa dibawa ke mana saja.</h2>
+            <p>Unduh pesanan, daftar pelanggan, dan laporan untung per trip atau per bulan kapan saja, dalam format CSV atau Excel. Kamu tidak terikat ke Haqiba.</p>
+          </div>
+          <div class="panel panel--mint">
+            <div class="exp" data-sim="exp" aria-hidden="true">
+              <div class="exp__bar"><b>Laporan November</b><span class="exp__btn">Ekspor data</span></div>
+              <div class="exp__opts"><span class="opt">Pesanan</span><span class="opt">Pelanggan</span><span class="opt">Untung per trip</span></div>
+              <div class="exp__fmt"><span class="fmt fmt--on">CSV</span><span class="fmt">Excel</span></div>
+              <div class="exp__file">
+                <span class="exp__ico">CSV</span>
+                <div><b>penjualan-nakhla-nov-2026.csv</b><span class="exp__prog"><i></i></span><small>128 pesanan · 94 pelanggan</small></div>
+              </div>
+              <table class="sheet">
+                <tr class="sr sr--h"><td>Tanggal</td><td>Pembeli</td><td>Total</td><td>Status</td></tr>
+                <tr class="sr"><td>02/11</td><td>Pak Hasan</td><td>722.517</td><td>Lunas</td></tr>
+                <tr class="sr"><td>05/11</td><td>Bu Rina</td><td>510.042</td><td>Lunas</td></tr>
+                <tr class="sr"><td>09/11</td><td>Bu Aminah</td><td>1.140.763</td><td>Diterima</td></tr>
+              </table>
+              <p class="exp__ok"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Tersimpan di perangkatmu</p>
+              <span class="finger"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- E. QR dan NFC -->
       <section class="feat" aria-labelledby="h-qr">
         <div class="wrap feat__in">
@@ -320,7 +379,7 @@
             <h2 id="h-qr">Tempel di kasir, cetak di kemasan.</h2>
             <p>Alamat tokomu otomatis tersedia sebagai QR siap cetak dan stiker NFC. Jemaah di toko cukup menempelkan HP. Setelah pulang, QR di kemasan membawa mereka kembali ke etalase yang sama untuk pesan lagi.</p>
           </div>
-          <div class="panel panel--mint">
+          <div class="panel panel--sky">
             <div class="tapdemo" data-sim="tap" aria-hidden="true">
               <div class="sticker"><svg viewBox="0 0 24 24"><path d="M6 8.5a5 5 0 0 1 0 7M9.5 6a8.5 8.5 0 0 1 0 12M13 4a12 12 0 0 1 0 16"/></svg><span>Tempelkan HP</span><small>haqiba.id/nakhla</small></div>
               <span class="ripple"></span><span class="ripple"></span>
