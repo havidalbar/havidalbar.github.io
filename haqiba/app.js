@@ -84,6 +84,7 @@ const renderCalc = () => {
   $$("[data-unit]", form).forEach((e) => { e.textContent = intl ? "Rp" : UNIT[code]; });
   $("[data-unit-price]", form).textContent = `(${intl ? F.cur.selectedOptions[0].textContent.split(" ")[0] : UNIT[code]})`;
   $('[data-l="base"]', form).textContent = intl ? "Harga dalam rupiah" : "Harga barang";
+  $(".cf-out", form).classList.toggle("total-only", !F.detail.checked); // pembeli hanya melihat total
 };
 
 const setMode = (m) => {
@@ -128,7 +129,7 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const M = reduce ? null : window.Motion ?? null;
 if (!reduce && !M) console.warn("Animasi tidak tersedia: Motion gagal dimuat.");
 heroDemo(M);
-if (M) { chatSim(M); mapSim(M); dashSim(M); tapSim(M); trackScroll(M); countUp(M); }
+if (M) { chatSim(M); tripSim(M); mapSim(M); dashSim(M); expSim(M); tapSim(M); trackScroll(M); countUp(M); }
 
 /* ---------- helpers ---------- */
 // Titik tengah el relatif terhadap kotak isi box (tanpa border).
@@ -253,6 +254,45 @@ function chatSim(M) {
     ...tap(box, fing, link, 3.1),
     [sys, POP, { at: 4.2, duration: 0.4 }],
     [[b1, b2, link, sys], { opacity: [1, 0] }, { at: 7, duration: 0.4 }],
+  ], { repeat: Infinity })]);
+}
+
+function tripSim(M) {
+  const box = $('[data-sim="trip"]'), orders = $$(".to", box), closed = $(".trip__closed", box);
+  const kgEl = $("[data-kg]", box), cd = $("[data-cd]", box), bar = $(".tquota", box), fill = $("span", bar);
+  const steps = [[0.8, 15.5], [1.8, 19], [2.8, 22.4], [3.8, 25]], total = 7.5;
+  const two = (n) => String(Math.floor(n)).padStart(2, "0");
+  whileVisible(M, box, () => [
+    M.animate([
+      [orders, UP, { at: 0.8, duration: 0.3, delay: M.stagger(1) }],
+      [closed, POP, { at: 4.4, duration: 0.35 }],
+      [box, { opacity: [1, 1] }, { at: total - 0.01, duration: 0.01 }],
+    ], { repeat: Infinity }),
+    M.animate(0, total, { duration: total, ease: "linear", repeat: Infinity, onUpdate: (t) => {
+      let kg = 12;
+      for (const [at, v] of steps) if (t >= at) kg = v;
+      kgEl.textContent = String(kg).replace(".", ",");
+      fill.style.transform = `scaleX(${kg / 25})`;
+      bar.classList.toggle("is-full", kg >= 25);
+      const s = 8049 - Math.floor(t); // 02:14:09 berjalan mundur
+      cd.textContent = `${two(s / 3600)}:${two((s % 3600) / 60)}:${two(s % 60)}`;
+    } }),
+  ]);
+}
+
+function expSim(M) {
+  const box = $('[data-sim="exp"]'), fing = $(".finger", box);
+  const btn = $(".exp__btn", box), opts = $$(".opt", box), csv = $(".fmt--on", box);
+  whileVisible(M, box, () => [M.animate([
+    ...tap(box, fing, btn, 0.3),
+    [opts, { opacity: [0.3, 1], transform: ["scale(0.9)", "scale(1)"] }, { at: 1.1, duration: 0.25, delay: M.stagger(0.2) }],
+    ...tap(box, fing, csv, 1.9),
+    [csv, { opacity: [0.3, 1] }, { at: 2.3, duration: 0.2 }],
+    [$(".exp__file", box), UP, { at: 2.8, duration: 0.35 }],
+    [$(".exp__prog i", box), { transform: ["scaleX(0)", "scaleX(1)"] }, { at: 3.0, duration: 1.1, ease: "easeInOut" }],
+    [$$(".sr", box), UP, { at: 4.2, duration: 0.25, delay: M.stagger(0.15) }],
+    [$(".exp__ok", box), POP, { at: 5.0, duration: 0.3 }],
+    [box, { opacity: [1, 1] }, { at: 7.99, duration: 0.01 }],
   ], { repeat: Infinity })]);
 }
 
