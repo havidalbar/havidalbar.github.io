@@ -178,20 +178,27 @@ async function openInvitation() {
   music.play().catch(syncMusicBtn);
   document.documentElement.requestFullscreen?.().catch(() => {});
 
-  if (M) {
+  const finish = () => {
+    $("#cover")?.remove();
+    $("#intro")?.remove();
+    document.body.classList.remove("locked");
+  };
+  if (!M) return finish();
+  try {
     profileLoops.forEach((a) => a.stop());
     // transisi pilih profil: profil zoom memenuhi layar seperti Netflix
-    await M.animate([
+    M.animate([
       [".cv:not(.profile-btn), #guest", { opacity: 0, y: -12 }, { duration: 0.35, ease: "easeIn" }],
       [".profile", { scale: 5 }, { duration: 0.9, ease: [0.65, 0, 0.35, 1], at: 0.1 }],
       [".profile", { opacity: 0 }, { duration: 0.4, at: 0.6 }],
       ["#cover", { opacity: 0 }, { duration: 0.5, at: 0.55 }],
-    ]).finished;
-  }
-  $("#cover").remove();
-  $("#intro")?.remove();
-  document.body.classList.remove("locked");
-  if (M) heroIn();
+    ]);
+  } catch {}
+  // halaman muncul di tengah zoom (tidak menunggu animasi selesai), jadi tidak bisa macet di layar hitam
+  setTimeout(() => {
+    try { heroIn(); } catch { $$(".hero .up, .hero-bg, #nav").forEach((el) => { el.style.opacity = 1; el.style.transform = el.style.filter = "none"; }); }
+  }, 550);
+  setTimeout(finish, 1100);
 }
 $("#open").onclick = $("#open2").onclick = openInvitation;
 
