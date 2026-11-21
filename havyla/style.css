@@ -1,7 +1,7 @@
 :root { --red: #e50914; --dark-red: #9b0f17; --bg: #000; --text: #fff; --muted: #b3b3b3; --grey: #6d6d6e; }
 * { box-sizing: border-box; margin: 0; }
 html { background: var(--bg); }
-body { background: var(--bg); color: var(--text); font-family: "Lato", sans-serif; line-height: 1.55; overflow-x: hidden; }
+body { visibility: visible; background: var(--bg); color: var(--text); font-family: "Lato", sans-serif; line-height: 1.55; overflow-x: hidden; }
 body.locked { overflow: hidden; }
 main { max-width: 480px; margin: 0 auto; }
 section { padding: 48px 20px; }
