@@ -46,15 +46,31 @@ toggle.addEventListener("click", () => setMenu(!menu.classList.contains("is-open
 menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
 
-// Kalkulator harga final
-function calc({ rate, price, fee, ship, duty, buf }) {
-  const base = Math.round(price * rate * (1 + buf / 100));
-  const dutyRp = Math.round((base * duty) / 100 / 1000) * 1000; // perkiraan, dibulatkan ke ribuan
-  return { base, extra: fee + ship, duty: dutyRp, total: base + fee + ship + dutyRp };
-}
-console.assert(calc({ rate: 4250, price: 170, fee: 0, ship: 293250, duty: 17.3, buf: 0 }).total === 1140750, "calc: contoh SAR 170 harus Rp1.140.750");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Domestik: penjual dan pembeli di negara yang sama, jadi tanpa kurs dan bea.
+// Kalkulator harga final
+const PPN_ID = 11, PPN_SA = 15;
+// Ke Indonesia: bea masuk dihitung dari nilai barang + ongkir, lalu PPN dari nilai itu + bea (PMK 96/2023).
+function calcToID({ rate, price, fee, ship, duty, buf }) {
+  const base = Math.round(price * rate * (1 + buf / 100));
+  const bea = Math.round(((base + ship) * duty) / 100);
+  const tax = Math.round(((base + ship + bea) * PPN_ID) / 100);
+  return { base, extra: fee + ship, duty: bea, tax, total: base + fee + ship + bea + tax };
+}
+console.assert(calcToID({ rate: 4600, price: 120, fee: 40000, ship: 230000, duty: 7.5, buf: 0 }).total === 973122, "calcToID: kurma SAR 120 harus Rp973.122");
+console.assert(calcToID({ rate: 4600, price: 170, fee: 0, ship: 230000, duty: 7.5, buf: 0 }).total === 1207569, "calcToID: contoh demo harus Rp1.207.569");
+
+// Ke Saudi: barang dibawa di koper, jadi PPN 15% dan bea masuk dihitung dari nilai barang saja.
+const sar = (n) => Math.round(n * 100) / 100;
+function calcToSA({ rate, price, fee, ship, duty, buf }) {
+  const base = sar((price / rate) * (1 + buf / 100));
+  const bea = sar((base * duty) / 100);
+  const tax = sar(((base + bea) * PPN_SA) / 100);
+  return { base, extra: sar(fee + ship), duty: bea, tax, total: sar(base + fee + ship + bea + tax) };
+}
+console.assert(calcToSA({ rate: 4600, price: 350000, fee: 20, ship: 10, duty: 0, buf: 2 }).total === 119.25, "calcToSA: batik Rp350.000 harus SAR 119,25");
+
+// Lokal: penjual dan pembeli di negara yang sama, jadi tanpa kurs dan bea.
 function calcDomestic({ price, fee, ship }) {
   return { base: price, extra: fee + ship, total: price + fee + ship };
 }
@@ -63,48 +79,111 @@ console.assert(calcDomestic({ price: 85, fee: 15, ship: 25 }).total === 125, "ca
 const form = $("#calc");
 const F = form.elements;
 const UNIT = { SAR: "SAR", IDR: "Rp", AED: "AED", QAR: "QAR" };
-const money = (code, n) => (code === "IDR" ? rp(n) : `${code} ${n.toLocaleString("id-ID", { maximumFractionDigits: 2 })}`);
-// Contoh awal per negara: [harga, fee, ongkir]
-const EXAMPLE = { SAR: [85, 15, 25], IDR: [150000, 20000, 15000], AED: [90, 15, 20], QAR: [90, 15, 20] };
-// Negara default mode domestik ditebak dari zona waktu perangkat; selain itu Arab Saudi.
+const money = (code, n) => (code === "IDR" ? rp(n) : `${code} ${n.toLocaleString("id-ID", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`);
+const SAR_RATE = 4600; // contoh kurs Rp per riyal
+// Contoh awal per mode: [harga, fee, ongkir, buffer]
+const EXAMPLE = { toid: [120, 40000, 230000, 0], tosa: [350000, 20, 10, 2] };
+const EXAMPLE_DOM = { SAR: [85, 15, 25], IDR: [150000, 20000, 15000], AED: [90, 15, 20], QAR: [90, 15, 20] };
+// Negara default mode lokal ditebak dari zona waktu perangkat; selain itu Arab Saudi.
 const TZ = { "Asia/Riyadh": "SAR", "Asia/Dubai": "AED", "Asia/Qatar": "QAR", "Asia/Jakarta": "IDR", "Asia/Pontianak": "IDR", "Asia/Makassar": "IDR", "Asia/Jayapura": "IDR" };
-F.dom.value = TZ[Intl.DateTimeFormat().resolvedOptions().timeZone] ?? "SAR";
+const deviceCur = TZ[Intl.DateTimeFormat().resolvedOptions().timeZone];
+F.dom.value = deviceCur ?? "SAR";
 
-let mode = "intl";
+let mode = "toid";
 const saved = {};
 const num = (name, max = Infinity) => Math.min(max, Math.max(0, Number(F[name].value) || 0));
-const fill = ([p, f, s]) => { F.price.value = p; F.fee.value = f; F.ship.value = s; };
+const fill = ([p, f, s, b]) => { F.price.value = p; F.fee.value = f; F.ship.value = s; if (b !== undefined) F.buf.value = b; };
+const example = (m) => (m === "dom" ? EXAMPLE_DOM[F.dom.value] : EXAMPLE[m]);
 
 const renderCalc = () => {
-  const intl = mode === "intl", code = F.dom.value;
-  const r = intl
-    ? calc({ rate: num("cur"), price: num("price"), fee: num("fee"), ship: num("ship"), duty: num("duty", 100), buf: num("buf", 20) })
-    : calcDomestic({ price: num("price"), fee: num("fee"), ship: num("ship") });
-  for (const k of ["base", "extra", "duty", "total"]) if (k in r) $(`[data-o="${k}"]`, form).textContent = intl ? rp(r[k]) : money(code, r[k]);
-  $$("[data-unit]", form).forEach((e) => { e.textContent = intl ? "Rp" : UNIT[code]; });
-  $("[data-unit-price]", form).textContent = `(${intl ? F.cur.selectedOptions[0].textContent.split(" ")[0] : UNIT[code]})`;
-  $('[data-l="base"]', form).textContent = intl ? "Harga dalam rupiah" : "Harga barang";
+  const code = mode === "toid" ? "IDR" : mode === "tosa" ? "SAR" : F.dom.value;
+  const duty = F.kat.value === "custom" ? num("duty", 100) : Number(F.kat.value);
+  const args = { price: num("price"), fee: num("fee"), ship: num("ship"), buf: num("buf", 20) };
+  const r = mode === "toid" ? calcToID({ ...args, rate: num("cur"), duty })
+    : mode === "tosa" ? calcToSA({ ...args, rate: SAR_RATE, duty: num("dutysa", 100) })
+    : calcDomestic(args);
+  for (const k of ["base", "extra", "duty", "tax", "total"]) if (k in r) $(`[data-o="${k}"]`, form).textContent = money(code, r[k]);
+  $$("[data-unit]", form).forEach((e) => { e.textContent = UNIT[code]; });
+  const priceUnit = mode === "toid" ? F.cur.selectedOptions[0].textContent.split(" ")[0] : mode === "tosa" ? "Rp" : UNIT[code];
+  $("[data-unit-price]", form).textContent = `(${priceUnit})`;
+  $('[data-l="base"]', form).textContent = mode === "toid" ? "Harga dalam rupiah" : mode === "tosa" ? "Harga dalam riyal" : "Harga barang";
+  $('[data-l="ship"]', form).textContent = mode === "tosa" ? "Ongkir atau porsi bagasi" : "Ongkir";
+  $('[data-l="duty"]', form).textContent = mode === "tosa" ? "Bea masuk Saudi" : `Bea masuk ${String(duty).replace(".", ",")}%`;
+  $('[data-l="tax"]', form).textContent = mode === "tosa" ? "PPN Saudi 15%" : "PPN impor 11%";
+  $(".only-custom", form).hidden = !(mode === "toid" && F.kat.value === "custom");
   $(".cf-out", form).classList.toggle("total-only", !F.detail.checked); // pembeli hanya melihat total
 };
 
 const setMode = (m) => {
   if (m === mode) return;
-  saved[mode] = [F.price.value, F.fee.value, F.ship.value];
+  saved[mode] = [F.price.value, F.fee.value, F.ship.value, F.buf.value];
   mode = m;
   $$(".seg button", form).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.mode === m)));
-  $$(".only-intl", form).forEach((e) => { e.hidden = m !== "intl"; });
+  $$(".only-intl", form).forEach((e) => { e.hidden = m === "dom"; });
+  $$(".only-toid", form).forEach((e) => { e.hidden = m !== "toid"; });
+  $$(".only-tosa", form).forEach((e) => { e.hidden = m !== "tosa"; });
   $$(".only-dom", form).forEach((e) => { e.hidden = m !== "dom"; });
-  fill(saved[m] ?? EXAMPLE[F.dom.value]);
+  fill(saved[m] ?? example(m));
   renderCalc();
 };
 
 $(".seg", form).addEventListener("click", (e) => { const b = e.target.closest("button[data-mode]"); if (b) setMode(b.dataset.mode); });
 form.addEventListener("input", (e) => {
-  if (e.target === F.dom) fill(EXAMPLE[F.dom.value]); // ganti negara = ganti mata uang, angka lama tidak relevan
+  if (e.target === F.dom) fill(EXAMPLE_DOM[F.dom.value]); // ganti negara = ganti mata uang, angka lama tidak relevan
   renderCalc();
 });
 form.addEventListener("submit", (e) => e.preventDefault());
 renderCalc();
+
+// Lima arah jualan
+const ARAH = {
+  A: { from: "Arab Saudi", to: "Indonesia", travels: true, seller: "Jastiper Indonesia yang berangkat umrah", cur: "SAR → IDR", base: "Rupiah (IDR)",
+       pay: "Transfer bank atau QRIS milik jastiper", ship: "Koper jastiper. Kalau koper penuh, sisa pesanan dialihkan ke kargo atau toko mitra" },
+  B: { from: "Arab Saudi", to: "Indonesia / negara lain", travels: false, seller: "Toko di Makkah dan Madinah, tidak bepergian", cur: "SAR → IDR", base: "Riyal (SAR)",
+       pay: "Rekening rupiah mitra toko, kartu, atau Wise. QRIS antarnegara menyusul", ship: "Antar ke hotel jemaah, atau kargo dan kurir resmi ke rumah pembeli" },
+  C: { from: "Indonesia", to: "Arab Saudi", travels: true, seller: "Warga Saudi yang berlibur ke Indonesia", cur: "IDR → SAR", base: "Riyal (SAR)",
+       pay: "Transfer bank Saudi, STC Pay, atau kartu mada", ship: "Koper, dengan deklarasi bea dan PPN 15%, atau kargo dari Indonesia" },
+  D1: { from: "Bandung", to: "Jakarta", travels: true, seller: "Jastiper lokal Indonesia", cur: "IDR → IDR", base: "Rupiah (IDR)",
+        pay: "Transfer bank atau QRIS", ship: "Kurir dalam negeri lewat Biteship" },
+  D2: { from: "Madinah", to: "Riyadh", travels: true, seller: "Jastiper atau toko lokal Saudi", cur: "SAR → SAR", base: "Riyal (SAR)",
+        pay: "Transfer bank Saudi, STC Pay, atau kartu mada", ship: "Antar sendiri, atau ekspedisi lewat OTO atau Torod" },
+};
+const arahCard = $(".arah__card"), route = $(".route", arahCard), sellerLane = $(".lane--seller", arahCard);
+let arahAnim = null;
+const setArah = (k) => {
+  const d = ARAH[k];
+  $$(".arah__chips button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.a === k)));
+  // Isi akhir ditulis langsung; animasi hanya hiasan dan boleh terpotong klik berikutnya.
+  for (const el of $$("[data-f]", arahCard)) {
+    const f = el.dataset.f;
+    el.textContent = f === "sellerLbl" ? (d.travels ? "Penjual pergi" : "Toko tidak bepergian") : d[f];
+  }
+  sellerLane.classList.toggle("is-off", !d.travels);
+  // Mulai ulang titik di jalur supaya arah barunya terlihat dari awal.
+  for (const dot of $$(".lane__dot", route)) { dot.style.animation = "none"; void dot.offsetWidth; dot.style.animation = ""; }
+  if (window.Motion && !reduce) {
+    arahAnim?.stop();
+    arahAnim = Motion.animate([
+      [$$(".route__node", route), { opacity: [0, 1], transform: ["scale(0.92)", "scale(1)"] }, { duration: 0.3, ease: "easeOut" }],
+      [$$(".fact", arahCard), { opacity: [0, 1], transform: ["translateY(8px)", "translateY(0px)"] }, { at: 0.05, duration: 0.3, delay: Motion.stagger(0.05), ease: "easeOut" }],
+    ]);
+  }
+};
+$(".arah__chips").addEventListener("click", (e) => { const b = e.target.closest("button[data-a]"); if (b) setArah(b.dataset.a); });
+
+// Harga: Indonesia atau Arab Saudi
+const regionSeg = $('.seg[aria-label="Harga untuk penjual di"]');
+let planAnim = null;
+const setRegion = (r) => {
+  $$("button", regionSeg).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.region === r)));
+  $$("[data-plans]").forEach((g) => { g.hidden = g.dataset.plans !== r; });
+  if (window.Motion && !reduce) {
+    planAnim?.stop();
+    planAnim = Motion.animate($$(`[data-plans="${r}"] .plan`), { opacity: [0, 1], transform: ["translateY(12px)", "translateY(0px)"] }, { duration: 0.35, delay: Motion.stagger(0.06), ease: "easeOut" });
+  }
+};
+regionSeg.addEventListener("click", (e) => { const b = e.target.closest("button[data-region]"); if (b) setRegion(b.dataset.region); });
+if (deviceCur && deviceCur !== "IDR") setRegion("sa"); // pengunjung dari Teluk langsung melihat harga riyal
 
 // Pengecek barang terbatas
 const rules = {
@@ -113,6 +192,8 @@ const rules = {
   parfum: ["warn", "Cek izin BPOM", "Kosmetik dan parfum yang dijual ulang di Indonesia perlu izin BPOM."],
   ponsel: ["warn", "Wajib registrasi IMEI", "Ponsel dari luar negeri harus didaftarkan IMEI-nya supaya bisa dipakai di Indonesia."],
   busana: ["ok", "Tidak ada peringatan khusus", "Busana dan sajadah bisa langsung dipajang. Bea tetap dihitung di harga final."],
+  koper: ["warn", "Bea dari seluruh nilai", "Barang jastip di koper wajib diurus dengan PIBK, tanpa potongan USD 500. Haqiba memasukkan bea ini ke harga final."],
+  camilan: ["warn", "Cek aturan SFDA", "Saudi hanya membebaskan makanan untuk dimakan sendiri. Camilan atau kopi untuk dijual bisa ditahan di bea cukai Saudi."],
 };
 const out = $(".checker__out");
 $(".checker__chips").addEventListener("click", (e) => {
@@ -124,12 +205,12 @@ $(".checker__chips").addEventListener("click", (e) => {
 });
 
 // Animasi. Reduced motion atau CDN gagal: halaman tetap utuh dalam keadaan statis.
-const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 // Motion dimuat sebagai script biasa (bukan module) supaya halaman juga jalan saat dibuka langsung dari file.
 const M = reduce ? null : window.Motion ?? null;
 if (!reduce && !M) console.warn("Animasi tidak tersedia: Motion gagal dimuat.");
 heroDemo(M);
 if (M) { chatSim(M); tripSim(M); mapSim(M); dashSim(M); expSim(M); tapSim(M); trackScroll(M); countUp(M); }
+routeLive(M);
 
 /* ---------- helpers ---------- */
 // Titik tengah el relatif terhadap kotak isi box (tanpa border).
@@ -258,22 +339,23 @@ function chatSim(M) {
 }
 
 function tripSim(M) {
-  const box = $('[data-sim="trip"]'), orders = $$(".to", box), closed = $(".trip__closed", box);
+  const box = $('[data-sim="trip"]'), orders = $$(".to:not(.to--alt)", box), alt = $(".to--alt", box), closed = $(".trip__closed", box);
   const kgEl = $("[data-kg]", box), cd = $("[data-cd]", box), bar = $(".tquota", box), fill = $("span", bar);
-  const steps = [[0.8, 15.5], [1.8, 19], [2.8, 22.4], [3.8, 25]], total = 7.5;
+  const steps = [[0.8, 22], [1.8, 25], [2.8, 27.5], [3.8, 30]], total = 8.5;
   const two = (n) => String(Math.floor(n)).padStart(2, "0");
   whileVisible(M, box, () => [
     M.animate([
       [orders, UP, { at: 0.8, duration: 0.3, delay: M.stagger(1) }],
-      [closed, POP, { at: 4.4, duration: 0.35 }],
+      [alt, UP, { at: 4.7, duration: 0.3 }],
+      [closed, POP, { at: 5.4, duration: 0.35 }],
       [box, { opacity: [1, 1] }, { at: total - 0.01, duration: 0.01 }],
     ], { repeat: Infinity }),
     M.animate(0, total, { duration: total, ease: "linear", repeat: Infinity, onUpdate: (t) => {
-      let kg = 12;
+      let kg = 18;
       for (const [at, v] of steps) if (t >= at) kg = v;
       kgEl.textContent = String(kg).replace(".", ",");
-      fill.style.transform = `scaleX(${kg / 25})`;
-      bar.classList.toggle("is-full", kg >= 25);
+      fill.style.transform = `scaleX(${kg / 30})`;
+      bar.classList.toggle("is-full", kg >= 30);
       const s = 8049 - Math.floor(t); // 02:14:09 berjalan mundur
       cd.textContent = `${two(s / 3600)}:${two((s % 3600) / 60)}:${two(s % 60)}`;
     } }),
@@ -355,4 +437,12 @@ function countUp(M) {
     const fmt = (v) => v.toLocaleString("id-ID", { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suffix;
     M.inView(el, () => { M.animate(0, to, { duration: 1.2, ease: "easeOut", onUpdate: (v) => { el.textContent = fmt(v); } }); }, { amount: 0.6 });
   }
+}
+
+// Titik di jalur arah jualan bergerak lewat CSS; hanya berjalan saat terlihat.
+function routeLive(M) {
+  const r = $(".route");
+  if (reduce) return;
+  r.classList.add("is-live");
+  if (M) M.inView(r, () => { r.classList.remove("is-paused"); return () => r.classList.add("is-paused"); }, { amount: 0.3 });
 }

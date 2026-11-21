@@ -225,6 +225,8 @@ svg { display: block; }
 .seg { justify-self: start; display: inline-flex; gap: 2px; padding: 3px; border: 2px solid var(--ink); border-radius: 999px; background: #fff; }
 .seg button { min-height: 42px; padding: 0 18px; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; transition: background-color .2s ease; }
 .seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.seg button { white-space: nowrap; }
+@media (max-width: 420px) { .seg button { padding: 0 12px; } }
 .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .calcform label { display: grid; gap: 6px; font-size: .85rem; font-weight: 600; }
 .calcform .lbl { white-space: nowrap; }
@@ -244,6 +246,9 @@ svg { display: block; }
 .m-bg { fill: #F7FAF8; }
 .m-road { stroke: var(--line); stroke-width: 10; fill: none; }
 .m-radius { fill: var(--green-l); stroke: var(--green); stroke-width: 2; stroke-dasharray: 6 6; }
+.m-radius2 { fill: var(--sun-l); stroke: var(--sun); stroke-width: 2; stroke-dasharray: 6 6; }
+.m-lbl { font: 700 10px "Schibsted Grotesk", system-ui, sans-serif; fill: var(--green-d); text-anchor: middle; }
+.m-lbl--2 { fill: var(--ink-2); text-anchor: end; }
 .m-mosque { fill: var(--green); stroke: var(--ink); stroke-width: 2; }
 .m-hotel { fill: #fff; stroke: var(--ink); stroke-width: 2; }
 .m-hotel--pick { fill: var(--sun); }
@@ -303,15 +308,17 @@ svg { display: block; }
 .bigtrack:not(.is-live) li::before { background: var(--green); }
 
 /* who */
-.who { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.who { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .who__card { border: 2px solid var(--ink); border-radius: var(--r); padding: 26px; display: grid; gap: 12px; align-content: start; }
 .who__card p { color: var(--ink-2); }
 .who__card .who__price { color: var(--ink); font-weight: 800; font-size: 1.1rem; }
 .who__card--green { background: var(--green-l); }
 .who__card--sun { background: var(--sun-l); }
 .who__card--sky { background: var(--sky-l); }
+.who__card--coral { background: var(--coral-l); }
 .who__tag { justify-self: start; background: var(--ink); color: #fff; font-size: .75rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
-@media (max-width: 900px) { .who { grid-template-columns: 1fr; } }
+@media (max-width: 1060px) { .who { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .who { grid-template-columns: 1fr; } }
 
 .trust { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .trust li { background: #fff; border: 2px solid var(--ink); border-radius: var(--r); padding: 22px; display: grid; gap: 8px; align-content: start; }
@@ -320,7 +327,8 @@ svg { display: block; }
 @media (max-width: 900px) { .trust { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 560px) { .trust { grid-template-columns: 1fr; } }
 
-.plans { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 16px; }
+.plans { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 16px; }
+.plans[hidden] { display: none; }
 .plan { position: relative; border: 2px solid var(--line); border-radius: var(--r); padding: 28px 22px 22px; display: grid; gap: 10px; grid-template-rows: auto auto 1fr auto; }
 .plan--main { border: 2px solid var(--ink); background: var(--green-l); box-shadow: 8px 8px 0 var(--green); }
 .plan__flag { position: absolute; top: -13px; left: 20px; background: var(--sun); border: 2px solid var(--ink); font-size: .75rem; font-weight: 800; padding: 2px 10px; border-radius: 999px; }
@@ -328,7 +336,7 @@ svg { display: block; }
 .plan__price small { font-size: .9rem; font-weight: 500; color: var(--ink-2); letter-spacing: 0; }
 .plan__for { color: var(--ink-2); font-size: .92rem; }
 .plan .btn { width: 100%; margin-top: 8px; }
-@media (max-width: 1000px) { .plans { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1000px) { .plans { grid-template-columns: 1fr 1fr; } .plan--main { grid-column: 1 / -1; } }
 @media (max-width: 560px) { .plans { grid-template-columns: 1fr; } }
 .offer { margin-top: 36px; display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 28px; align-items: center; background: var(--sun); border: 2px solid var(--ink); border-radius: var(--r); padding: 28px; }
 .offer ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
@@ -420,3 +428,79 @@ svg { display: block; }
 .sr--h td { background: var(--green-l); font-weight: 700; }
 .exp__ok { display: flex; align-items: center; gap: 6px; font-weight: 700; color: var(--green-d); font-size: .85rem; }
 .exp__ok svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+/* pembuka section */
+.sec__lead { max-width: 62ch; color: var(--ink-2); font-size: 1.08rem; margin-top: -24px; margin-bottom: 40px; }
+@media (max-width: 640px) { .sec__lead { margin-top: -12px; margin-bottom: 28px; } }
+.seg--center { display: flex; width: max-content; max-width: 100%; margin: 0 auto 28px; }
+@media (max-width: 480px) { .seg--center { width: 100%; } .seg--center button { flex: 1; padding: 0 10px; } }
+
+/* lima arah jualan */
+.arah { display: grid; grid-template-columns: minmax(240px, 1fr) 1.6fr; gap: 28px; align-items: start; }
+.arah__chips { display: grid; gap: 10px; }
+.arah__chips button { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 8px 16px 8px 8px; border-radius: 16px; border: 2px solid var(--line); background: #fff; color: var(--ink); font: inherit; font-weight: 600; text-align: left; cursor: pointer; transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease; }
+.arah__chips button:hover { border-color: var(--ink); }
+.arah__chips button b { flex: none; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; background: var(--ink); color: #fff; font-size: .85rem; }
+.arah__chips button[aria-pressed="true"] { border-color: var(--ink); background: var(--green-l); box-shadow: 4px 4px 0 var(--ink); }
+.arah__chips button[aria-pressed="true"] b { background: var(--green); color: var(--ink); }
+.arah__card { background: #fff; border: 2px solid var(--ink); border-radius: 28px; padding: 28px; box-shadow: 8px 8px 0 var(--green); display: grid; gap: 24px; }
+.route { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; }
+.route__node { padding: 10px 16px; border-radius: 999px; border: 2px solid var(--ink); background: var(--sun); font-weight: 800; white-space: nowrap; }
+.route__node--to { background: var(--green); }
+.route__lanes { display: grid; gap: 14px; min-width: 0; }
+.lane { position: relative; container-type: inline-size; height: 34px; border-radius: 999px; background: var(--sky-l); }
+.lane::before { content: ""; position: absolute; left: 14px; right: 14px; top: 50%; border-top: 2px dashed var(--ink); opacity: .35; }
+.lane--goods { background: var(--green-l); }
+.lane__lbl { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-size: .72rem; font-weight: 700; color: var(--ink-2); background: inherit; padding: 0 8px; border-radius: 999px; white-space: nowrap; }
+.lane--goods .lane__lbl { background: var(--green-l); }
+.lane--seller .lane__lbl { background: var(--sky-l); }
+.lane__dot { position: absolute; top: 3px; left: 3px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); display: grid; place-items: center; }
+.lane__dot svg { width: 15px; height: 15px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; }
+.lane--seller .lane__dot svg { fill: var(--ink); stroke: none; rotate: -90deg; }
+.lane--seller .lane__dot { left: auto; right: 3px; }
+.route.is-live .lane--goods .lane__dot { animation: lane-go 3.2s cubic-bezier(.45, 0, .55, 1) infinite; }
+.route.is-live .lane--seller .lane__dot { animation: lane-back 3.2s cubic-bezier(.45, 0, .55, 1) infinite; }
+.route.is-paused .lane__dot { animation-play-state: paused; }
+.lane.is-off { opacity: .45; }
+.lane.is-off .lane__dot { display: none; }
+@keyframes lane-go { from { transform: translateX(0); } to { transform: translateX(calc(100cqw - 34px)); } }
+@keyframes lane-back { from { transform: translateX(0); } to { transform: translateX(calc(34px - 100cqw)); } }
+@media (prefers-reduced-motion: reduce) { .route .lane__dot { animation: none !important; } }
+.facts { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.fact { background: var(--sun-l); border-radius: 14px; padding: 12px 14px; display: grid; gap: 2px; }
+.fact--wide { grid-column: 1 / -1; }
+.fact dt { font-size: .78rem; font-weight: 700; color: var(--ink-2); }
+.fact dd { margin: 0; font-weight: 700; }
+@media (max-width: 860px) {
+  .arah { grid-template-columns: 1fr; }
+  .arah__chips { display: flex; overflow-x: auto; padding: 2px 6px 10px 2px; scrollbar-width: none; }
+  .arah__chips button { flex: none; }
+}
+@media (max-width: 520px) {
+  .arah__card { padding: 18px; border-radius: 22px; }
+  .route { grid-template-columns: 1fr; justify-items: stretch; }
+  .route__node { justify-self: start; }
+  .route__node--to { justify-self: end; }
+  .facts { grid-template-columns: 1fr; }
+}
+
+/* zona antar */
+.zones { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 10px; }
+.zones li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.zones li div { display: grid; }
+.zones li span:not(.zone) { color: var(--ink-2); font-size: .95rem; }
+.zone { font-size: .75rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; border: 2px solid var(--ink); white-space: nowrap; margin-top: 2px; }
+.zone--1 { background: var(--green-l); }
+.zone--2 { background: var(--sun-l); }
+.zone--3 { background: #fff; }
+
+/* metode bayar */
+.paygrp { display: grid; gap: 10px; }
+.paygrp div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.paygrp b { width: 100%; font-size: .85rem; }
+.opt--soon { background: #fff; border-style: dashed; }
+.opt--soon::before { display: none; }
+
+/* pesanan yang dialihkan ke kargo */
+.to--alt { border-color: var(--sky); background: var(--sky-l); }
+.to--alt i { color: var(--sky-d); }
