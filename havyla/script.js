@@ -330,13 +330,15 @@ $$(".copy").forEach((b) => b.onclick = async () => {
 });
 
 /* ---------- Ucapan ---------- */
-// shortcut: disimpan di localStorage, hanya terlihat di browser pengirim; ganti ke Google Sheets/Apps Script atau Firebase sebelum disebar.
+// URL Web App Apps Script (lihat apps-script.gs). Kosong = ucapan hanya disimpan di browser pengirim.
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwU_mGUVGrFrsjlHwZ9Z9goBxf53pgdHed8hoNatDLlfAovGZesDaIKCTpSAuGt6HR5/exec";
 const COLORS = ["#fbd3dc", "#c8f0d0", "#e0d4fb", "#fff1b8", "#d4ecfb"];
 const KEY = "wishes";
 const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch { return []; } };
+let list = SHEET_URL ? [] : load();
 
 function render() {
-  $("#wishes").replaceChildren(...load().map((w, i) => {
+  $("#wishes").replaceChildren(...list.map((w, i) => {
     const el = document.createElement("div");
     el.className = "wish";
     el.innerHTML = `<div class="avatar"></div><div><b></b><span class="att"></span><p></p><small></small></div>`;
@@ -345,11 +347,12 @@ function render() {
     av.style.background = COLORS[i % COLORS.length];
     $("b", el).textContent = w.name; // textContent: cegah XSS dari input tamu
     const att = $(".att", el);
-    att.textContent = w.att === "Hadir" && w.count > 1 ? `Hadir · ${w.count} orang` : w.att;
+    att.textContent = w.att === "Hadir" && w.count > 1 ? `Hadir · ${w.count} orang` : w.att || "";
+    att.hidden = !w.att; // dari sheet: kehadiran tidak ditampilkan
     att.classList.toggle("no", w.att === "Berhalangan" || w.att === "Tidak Hadir");
     att.classList.toggle("maybe", w.att === "Masih Ragu");
     $("p", el).textContent = w.msg;
-    $("small", el).textContent = new Date(w.at).toLocaleString("id-ID", { dateStyle: "long", timeStyle: "short" });
+    $("small", el).textContent = !w.at ? "" : new Date(w.at).toLocaleString("id-ID", { dateStyle: "long", timeStyle: "short" });
     return el;
   }));
 }
@@ -373,15 +376,30 @@ $$("[data-step]", form).forEach((b) => b.onclick = () => {
 });
 $("#w-msg").addEventListener("input", (e) => { $("#w-left").textContent = `${e.target.value.length}/500`; });
 
-form.onsubmit = (e) => {
+if (guest) $("#w-name").value = guest;
+form.onsubmit = async (e) => {
   e.preventDefault();
   const att = form.querySelector("[name=att]:checked")?.value;
   const w = { name: $("#w-name").value.trim(), att, count: att === "Hadir" ? count : 0, msg: $("#w-msg").value.trim(), at: Date.now() };
   err.textContent = !w.name ? "Mohon isi nama Anda." : !att ? "Mohon pilih konfirmasi kehadiran." : !w.msg ? "Mohon tulis doa & ucapan." : "";
   if (err.textContent) { if (M) M.animate(form, { x: [0, -8, 8, -5, 5, 0] }, { duration: 0.4 }); return; }
-  try { localStorage.setItem(KEY, JSON.stringify([w, ...load()])); } catch {}
+  // optimis: langsung tampil, kirim ke sheet di belakang; kalau gagal, ucapan ditarik dan isian dikembalikan
+  list = [w, ...list];
   form.reset(); count = 1; countEl.textContent = "1"; guestsBox.hidden = true; $("#w-left").textContent = "0/500";
   render();
   if (M) M.animate("#wishes .wish:first-child", { opacity: [0, 1], y: [-20, 0], scale: [0.95, 1] }, SPRING);
+  if (!SHEET_URL) { try { localStorage.setItem(KEY, JSON.stringify([w, ...load()])); } catch {} return; }
+  try {
+    // text/plain: tanpa preflight CORS, Apps Script tetap bisa membaca body
+    const res = await fetch(SHEET_URL, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify({ ...w, to: guest || "" }) });
+    if (!(await res.json()).ok) throw 0;
+  } catch {
+    list = list.filter((x) => x !== w); render();
+    $("#w-name").value = w.name; $("#w-msg").value = w.msg; $("#w-left").textContent = `${w.msg.length}/500`;
+    form.querySelector(`[name=att][value="${w.att}"]`).checked = true;
+    if (w.att === "Hadir") { count = w.count; countEl.textContent = count; guestsBox.hidden = false; }
+    err.textContent = "Gagal mengirim, periksa koneksi lalu coba lagi.";
+  }
 };
 render();
+if (SHEET_URL) fetch(SHEET_URL).then((r) => r.json()).then((l) => { list = l; render(); }).catch(() => {});
