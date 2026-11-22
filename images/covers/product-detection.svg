@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+<defs>
+<radialGradient id="g" cx="82%" cy="8%" r="85%"><stop offset="0" stop-color="#fbbf24" stop-opacity=".34"/><stop offset=".6" stop-color="#fbbf24" stop-opacity=".04"/><stop offset="1" stop-color="#fbbf24" stop-opacity="0"/></radialGradient>
+<pattern id="d" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.1" fill="#fff" fill-opacity=".07"/></pattern>
+<linearGradient id="a" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+</defs>
+<style>
+.m{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.s{font-family:"Space Grotesk","Inter",system-ui,-apple-system,"Segoe UI",sans-serif}
+.lab{fill:#e8eaf0;font-size:17px;letter-spacing:.06em}
+.mu{fill:#9aa3b2}
+@keyframes pulse{0%{opacity:.9;transform:scale(.4)}100%{opacity:0;transform:scale(1.6)}}
+@keyframes scan{0%,100%{transform:translateY(0)}50%{transform:translateY(300px)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes float{50%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<rect width="800" height="600" fill="#0e1117"/>
+<rect width="800" height="600" fill="url(#d)"/>
+<rect class="glow" width="800" height="600" fill="url(#g)"/>
+<g class="fg"><rect x="75" y="110" width="150" height="140" rx="16" fill="#141823" stroke="rgba(255,255,255,.12)" stroke-width="1"/><g transform="translate(150 180)" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-opacity="0.6"><rect x="-26" y="-34" width="52" height="68" rx="10"/><path d="M-12 -34 v-10 h24 v10"/></g><rect x="265" y="110" width="150" height="140" rx="16" fill="#141823" stroke="rgba(255,255,255,.12)" stroke-width="1"/><g transform="translate(340 180)" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-opacity="0.6"><circle r="32"/><path d="M-16 0 h32 M0 -16 v32"/></g><rect x="455" y="110" width="150" height="140" rx="16" fill="#141823" stroke="rgba(255,255,255,.12)" stroke-width="1"/><g transform="translate(530 180)" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-opacity="0.6"><path d="M-34 20 l34 -54 l34 54 z"/></g><rect x="75" y="280" width="150" height="140" rx="16" fill="#141823" stroke="#fbbf24" stroke-width="3"/><g transform="translate(150 350)" fill="none" stroke="#fbbf24" stroke-width="3" stroke-opacity="1"><rect x="-36" y="-22" width="72" height="44" rx="8"/><circle cx="-18" cy="30" r="7"/><circle cx="18" cy="30" r="7"/></g><rect x="75" y="426" width="150" height="26" rx="6" fill="#fbbf24"/><text x="150" y="444" text-anchor="middle" class="m" font-size="14" fill="#07080c">class_17  0.92</text><rect x="265" y="280" width="150" height="140" rx="16" fill="#141823" stroke="rgba(255,255,255,.12)" stroke-width="1"/><g transform="translate(340 350)" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-opacity="0.6"><path d="M-30 -30 h60 l-10 64 h-40 z"/></g><rect x="455" y="280" width="150" height="140" rx="16" fill="#141823" stroke="rgba(255,255,255,.12)" stroke-width="1"/><g transform="translate(530 350)" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-opacity="0.6"><circle r="20" cy="-10"/><path d="M-30 34 q30 -40 60 0"/></g></g>
+<g class="meta"><text x="40" y="548" class="m lab">PRODUCT DETECTION · SHOPEE</text>
+<text x="760" y="548" text-anchor="end" class="m" font-size="17" fill="#fbbf24">0.762 acc · rank 210/823</text></g>
+</svg>
