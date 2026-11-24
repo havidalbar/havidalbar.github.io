@@ -1305,7 +1305,8 @@
 			});
 			$(".hero").addEventListener("pointerleave", () => animate(obs, { rotateY: 0, rotateX: 0 }, { type: "spring", stiffness: 100, damping: 14 }));
 		}
-		scroll(animate(".hero-grid", { opacity: [1, 0], transform: ["translateY(0px)", "translateY(-90px)"], filter: ["blur(0px)", "blur(6px)"] }, { ease: "linear" }),
+		// only where the photo sits beside the text; stacked on phones the photo would blur while you are looking at it
+		if (matchMedia("(min-width: 961px)").matches) scroll(animate(".hero-grid", { opacity: [1, 0], transform: ["translateY(0px)", "translateY(-90px)"], filter: ["blur(0px)", "blur(6px)"] }, { ease: "linear" }),
 			{ target: $(".hero"), offset: ["start start", "end start"] });
 
 		/* role line cycles through what else I ship */
