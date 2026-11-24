@@ -39,7 +39,7 @@
 			var d = document.documentElement, t = null;
 			d.classList.add("js");
 			if (!matchMedia("(prefers-reduced-motion: reduce)").matches) { d.classList.add("intro"); setTimeout(function () { d.classList.remove("intro"); }, 4000); }
-			try { t = localStorage.getItem("theme"); } catch (e) {}
+			try { t = localStorage.getItem("theme-dive"); } catch (e) {}
 			d.dataset.theme = t || "dark"; // the deep is the default; the toggle remembers a visitor's choice
 		})();
 	</script>
@@ -1159,7 +1159,7 @@
 		};
 		const setTheme = (t) => {
 			root.dataset.theme = t;
-			try { localStorage.setItem("theme", t); } catch (e) {}
+			try { localStorage.setItem("theme-dive", t); } catch (e) {}
 			labelTheme(); lastCss = ""; tick();
 		};
 		labelTheme();
