@@ -10,7 +10,6 @@ Personal site of **Mochamad Havid Albar Purnomo**, Software Engineer (backend) a
 |---|---|
 | [`/`](https://havidalbar.github.io/) | Portfolio: experience, skills, featured work, research and project archive |
 | [`/haqiba/`](https://havidalbar.github.io/haqiba/) | Haqiba, an online store for personal shoppers trading between Indonesia and Saudi Arabia |
-| [`/vocabkids/`](https://havidalbar.github.io/vocabkids/) | VocabKids AI, an English vocabulary app for kids (React build) |
 
 ## Portfolio
 
@@ -39,7 +38,6 @@ images/covers/      SVG project covers
 images/projects/    screenshots of the live products
 favicons/           site icons and web manifest
 haqiba/             Haqiba landing page
-vocabkids/          VocabKids production build
 ```
 
 ## Contact
